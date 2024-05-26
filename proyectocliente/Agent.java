@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 public class Agent extends Thread {
     private UUID id = UUID.randomUUID();
@@ -53,33 +52,21 @@ public class Agent extends Thread {
         System.out.println("Comunicacion con el cliente iniciada utilizando el token: " + token);
     }
     @Override
-     public void run() {
+    public void run() {
         while (status) {
             Cliente cliente = buffer.atenderCliente();
             if (cliente != null) {
-                SwingUtilities.invokeLater(() -> {
-                    //estado.setText("Ocupado");
-                });
                 try {
                     sleep((int) (Math.random() * 6000));
                     //peticion al servidor
                     System.out.println(cliente.getNombre()+" ha salido del banco.");
                     serverRequest();
                     agents_process++;
-                    
-                    SwingUtilities.invokeLater(() -> {
-                        // texto.append(cliente.getNombre() +" "+ cliente.getApellido()+ " ha salido de la barberia.\n");
-                        //label_clientes_atendidos.setText("Clientes atendidos: " + clientes_procesados);
-                    });
                 } catch (InterruptedException e) {
                     System.out.println("Error: " + e);
                 }
             }
-            //decrementarEnergia();
             if (agents_process == total_agents) {
-                SwingUtilities.invokeLater(() -> {
-                    //estado.setText("Disponible");
-                });
                 status = false;
             }
         }

@@ -44,10 +44,11 @@ public class Productor extends Thread {
                         } catch(InterruptedException e) {
                             System.out.println("Error: " + e);
                         }
-                    } else {
+                    }else {
                         //System.out.println("Error: Datos incompletos en la posición " + i);
                         estado=false;
-                    }   } else {
+                    }   
+                } else {
                     //System.out.println("Error: Datos nulos o incompletos en la posición " + i);
                 }
             }
